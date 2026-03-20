@@ -4,112 +4,99 @@ local ThemeManager = loadstring(game:HttpGet(repo .. "addons/ThemeManager.lua"))
 local SaveManager  = loadstring(game:HttpGet(repo .. "addons/SaveManager.lua"))()
 
 local Window = Library:CreateWindow({
-    Title = "Full Suite",
+    Title = "FullSuit.V5",
     Center = true,
     AutoShow = true,
 })
 
 local Tabs = {
-    Game   = Window:AddTab("Game"),
-    V3     = Window:AddTab("V3 Gen"),
-    Script = Window:AddTab("Script"),
-    Ext    = Window:AddTab("External"),
-    Psalms = Window:AddTab("Psalms"),
-    Cfg    = Window:AddTab("Config"),
+    Game     = Window:AddTab("Game"),
+    V3       = Window:AddTab("V3 Gen"),
+    Script   = Window:AddTab("Script"),
+    Ext      = Window:AddTab("External"),
+    Psalms   = Window:AddTab("Psalms"),
+    Vertical = Window:AddTab("Vertical"),
+    Cfg      = Window:AddTab("Config"),
 }
 
 local GAME_PROFILES = {
     ["Da Hood"] = {
         PingMult=1.0, ExtMult=1.0, ScriptMult=1.0, PsalmsMult=1.0,
         Psalms = {
-            HvH       = {hMin=0.0820,hMax=0.0950,vMin=0.0840,vMax=0.0970,jumpMin=-0.45,jumpMax=-0.16,camSMin=0.13,camSMax=0.23},
-            ["HvH OP"]= {hMin=0.0850,hMax=0.0980,vMin=0.0870,vMax=0.1000,jumpMin=-0.48,jumpMax=-0.40,camSMin=0.10,camSMax=0.15},
-            Blatant   = {hMin=0.0900,hMax=0.1050,vMin=0.0920,vMax=0.1070,jumpMin=-0.30,jumpMax=-0.16,camSMin=0.10,camSMax=0.20},
-            Legit     = {hMin=0.0650,hMax=0.0800,vMin=0.0670,vMax=0.0820,jumpMin=-0.50,jumpMax=-0.40,camSMin=0.25,camSMax=0.40},
+            HvH       = {hMin=0.0820,hMax=0.0950,vMin=0.0840,vMax=0.0970,jumpMin=-0.45,jumpMax=-0.16,fallMin=0.0,fallMax=0.03,camSMin=0.13,camSMax=0.23},
+            ["HvH OP"]= {hMin=0.0850,hMax=0.0980,vMin=0.0870,vMax=0.1000,jumpMin=-0.48,jumpMax=-0.40,fallMin=0.0,fallMax=0.05,camSMin=0.10,camSMax=0.15},
+            Blatant   = {hMin=0.0900,hMax=0.1050,vMin=0.0920,vMax=0.1070,jumpMin=-0.30,jumpMax=-0.16,fallMin=0.2,fallMax=0.35,camSMin=0.10,camSMax=0.20},
+            Legit     = {hMin=0.0650,hMax=0.0800,vMin=0.0670,vMax=0.0820,jumpMin=-0.50,jumpMax=-0.40,fallMin=0.0,fallMax=0.04,camSMin=0.25,camSMax=0.40},
         },
     },
     ["Da Strike"] = {
         PingMult=1.05, ExtMult=1.05, ScriptMult=1.05, PsalmsMult=1.05,
         Psalms = {
-            HvH       = {hMin=0.1419,hMax=0.1478,vMin=0.1492,vMax=0.1540,jumpMin=-0.45,jumpMax=-0.16,camSMin=0.1329,camSMax=0.228},
-            ["HvH OP"]= {hMin=0.1419,hMax=0.1478,vMin=0.1492,vMax=0.1540,jumpMin=-0.48,jumpMax=-0.40,camSMin=0.10,camSMax=0.15},
-            Blatant   = {hMin=0.1419,hMax=0.1550,vMin=0.1470,vMax=0.1600,jumpMin=-0.30,jumpMax=-0.16,camSMin=0.10,camSMax=0.20},
-            Legit     = {hMin=0.1350,hMax=0.1465,vMin=0.1400,vMax=0.1502,jumpMin=-0.50,jumpMax=-0.40,camSMin=0.25,camSMax=0.40},
+            HvH       = {hMin=0.1419,hMax=0.1478,vMin=0.1492,vMax=0.1540,jumpMin=-0.45,jumpMax=-0.16,fallMin=0.0,fallMax=0.05,camSMin=0.1329,camSMax=0.228},
+            ["HvH OP"]= {hMin=0.1419,hMax=0.1478,vMin=0.1492,vMax=0.1540,jumpMin=-0.48,jumpMax=-0.40,fallMin=0.0,fallMax=0.05,camSMin=0.10,camSMax=0.15},
+            Blatant   = {hMin=0.1419,hMax=0.1550,vMin=0.1470,vMax=0.1600,jumpMin=-0.30,jumpMax=-0.16,fallMin=0.2,fallMax=0.35,camSMin=0.10,camSMax=0.20},
+            Legit     = {hMin=0.1350,hMax=0.1465,vMin=0.1400,vMax=0.1502,jumpMin=-0.50,jumpMax=-0.40,fallMin=0.0,fallMax=0.04,camSMin=0.25,camSMax=0.40},
         },
     },
     ["Voidfalls"] = {
         PingMult=0.95, ExtMult=0.95, ScriptMult=0.95, PsalmsMult=0.95,
         Psalms = {
-            HvH       = {hMin=0.1300,hMax=0.1430,vMin=0.1320,vMax=0.1450,jumpMin=-0.40,jumpMax=-0.15,camSMin=0.13,camSMax=0.22},
-            ["HvH OP"]= {hMin=0.1320,hMax=0.1450,vMin=0.1340,vMax=0.1470,jumpMin=-0.45,jumpMax=-0.38,camSMin=0.10,camSMax=0.14},
-            Blatant   = {hMin=0.1400,hMax=0.1550,vMin=0.1420,vMax=0.1570,jumpMin=-0.28,jumpMax=-0.14,camSMin=0.10,camSMax=0.18},
-            Legit     = {hMin=0.1100,hMax=0.1280,vMin=0.1120,vMax=0.1300,jumpMin=-0.48,jumpMax=-0.38,camSMin=0.25,camSMax=0.38},
+            HvH       = {hMin=0.1300,hMax=0.1430,vMin=0.1320,vMax=0.1450,jumpMin=-0.40,jumpMax=-0.15,fallMin=0.0,fallMax=0.04,camSMin=0.13,camSMax=0.22},
+            ["HvH OP"]= {hMin=0.1320,hMax=0.1450,vMin=0.1340,vMax=0.1470,jumpMin=-0.45,jumpMax=-0.38,fallMin=0.0,fallMax=0.05,camSMin=0.10,camSMax=0.14},
+            Blatant   = {hMin=0.1400,hMax=0.1550,vMin=0.1420,vMax=0.1570,jumpMin=-0.28,jumpMax=-0.14,fallMin=0.2,fallMax=0.32,camSMin=0.10,camSMax=0.18},
+            Legit     = {hMin=0.1100,hMax=0.1280,vMin=0.1120,vMax=0.1300,jumpMin=-0.48,jumpMax=-0.38,fallMin=0.0,fallMax=0.04,camSMin=0.25,camSMax=0.38},
         },
     },
     ["Criminality"] = {
         PingMult=1.1, ExtMult=1.1, ScriptMult=1.1, PsalmsMult=1.1,
         Psalms = {
-            HvH       = {hMin=0.1450,hMax=0.1630,vMin=0.1470,vMax=0.1650,jumpMin=-0.45,jumpMax=-0.18,camSMin=0.13,camSMax=0.23},
-            ["HvH OP"]= {hMin=0.1470,hMax=0.1650,vMin=0.1490,vMax=0.1670,jumpMin=-0.48,jumpMax=-0.42,camSMin=0.10,camSMax=0.14},
-            Blatant   = {hMin=0.1600,hMax=0.1750,vMin=0.1620,vMax=0.1770,jumpMin=-0.32,jumpMax=-0.18,camSMin=0.10,camSMax=0.20},
-            Legit     = {hMin=0.1280,hMax=0.1430,vMin=0.1300,vMax=0.1450,jumpMin=-0.52,jumpMax=-0.42,camSMin=0.26,camSMax=0.42},
+            HvH       = {hMin=0.1450,hMax=0.1630,vMin=0.1470,vMax=0.1650,jumpMin=-0.45,jumpMax=-0.18,fallMin=0.0,fallMax=0.05,camSMin=0.13,camSMax=0.23},
+            ["HvH OP"]= {hMin=0.1470,hMax=0.1650,vMin=0.1490,vMax=0.1670,jumpMin=-0.48,jumpMax=-0.42,fallMin=0.0,fallMax=0.05,camSMin=0.10,camSMax=0.14},
+            Blatant   = {hMin=0.1600,hMax=0.1750,vMin=0.1620,vMax=0.1770,jumpMin=-0.32,jumpMax=-0.18,fallMin=0.2,fallMax=0.35,camSMin=0.10,camSMax=0.20},
+            Legit     = {hMin=0.1280,hMax=0.1430,vMin=0.1300,vMax=0.1450,jumpMin=-0.52,jumpMax=-0.42,fallMin=0.0,fallMax=0.04,camSMin=0.26,camSMax=0.42},
         },
     },
     ["The Streets"] = {
         PingMult=1.0, ExtMult=1.0, ScriptMult=1.0, PsalmsMult=1.0,
         Psalms = {
-            HvH       = {hMin=0.0900,hMax=0.1050,vMin=0.0920,vMax=0.1070,jumpMin=-0.44,jumpMax=-0.16,camSMin=0.13,camSMax=0.23},
-            ["HvH OP"]= {hMin=0.0920,hMax=0.1070,vMin=0.0940,vMax=0.1090,jumpMin=-0.47,jumpMax=-0.40,camSMin=0.10,camSMax=0.14},
-            Blatant   = {hMin=0.1000,hMax=0.1150,vMin=0.1020,vMax=0.1170,jumpMin=-0.30,jumpMax=-0.16,camSMin=0.10,camSMax=0.20},
-            Legit     = {hMin=0.0720,hMax=0.0870,vMin=0.0740,vMax=0.0890,jumpMin=-0.50,jumpMax=-0.40,camSMin=0.25,camSMax=0.40},
+            HvH       = {hMin=0.0900,hMax=0.1050,vMin=0.0920,vMax=0.1070,jumpMin=-0.44,jumpMax=-0.16,fallMin=0.0,fallMax=0.04,camSMin=0.13,camSMax=0.23},
+            ["HvH OP"]= {hMin=0.0920,hMax=0.1070,vMin=0.0940,vMax=0.1090,jumpMin=-0.47,jumpMax=-0.40,fallMin=0.0,fallMax=0.05,camSMin=0.10,camSMax=0.14},
+            Blatant   = {hMin=0.1000,hMax=0.1150,vMin=0.1020,vMax=0.1170,jumpMin=-0.30,jumpMax=-0.16,fallMin=0.2,fallMax=0.32,camSMin=0.10,camSMax=0.20},
+            Legit     = {hMin=0.0720,hMax=0.0870,vMin=0.0740,vMax=0.0890,jumpMin=-0.50,jumpMax=-0.40,fallMin=0.0,fallMax=0.04,camSMin=0.25,camSMax=0.40},
+        },
+    },
+    ["Yeno Hood"] = {
+        PingMult=1.02, ExtMult=1.02, ScriptMult=1.02, PsalmsMult=1.02,
+        Psalms = {
+            HvH       = {hMin=0.0900,hMax=0.1060,vMin=0.0920,vMax=0.1080,jumpMin=-0.44,jumpMax=-0.16,fallMin=0.0,fallMax=0.04,camSMin=0.13,camSMax=0.23},
+            ["HvH OP"]= {hMin=0.0930,hMax=0.1080,vMin=0.0950,vMax=0.1100,jumpMin=-0.47,jumpMax=-0.40,fallMin=0.0,fallMax=0.05,camSMin=0.10,camSMax=0.14},
+            Blatant   = {hMin=0.1010,hMax=0.1160,vMin=0.1030,vMax=0.1180,jumpMin=-0.30,jumpMax=-0.16,fallMin=0.2,fallMax=0.33,camSMin=0.10,camSMax=0.20},
+            Legit     = {hMin=0.0730,hMax=0.0880,vMin=0.0750,vMax=0.0900,jumpMin=-0.50,jumpMax=-0.40,fallMin=0.0,fallMax=0.04,camSMin=0.25,camSMax=0.40},
         },
     },
     ["Custom"] = {
         PingMult=1.0, ExtMult=1.0, ScriptMult=1.0, PsalmsMult=1.0,
         Psalms = {
-            HvH       = {hMin=0.1380,hMax=0.1480,vMin=0.1400,vMax=0.1500,jumpMin=-0.45,jumpMax=-0.16,camSMin=0.13,camSMax=0.23},
-            ["HvH OP"]= {hMin=0.1390,hMax=0.1490,vMin=0.1410,vMax=0.1510,jumpMin=-0.48,jumpMax=-0.40,camSMin=0.10,camSMax=0.14},
-            Blatant   = {hMin=0.1400,hMax=0.1520,vMin=0.1420,vMax=0.1540,jumpMin=-0.30,jumpMax=-0.16,camSMin=0.10,camSMax=0.20},
-            Legit     = {hMin=0.1320,hMax=0.1440,vMin=0.1350,vMax=0.1470,jumpMin=-0.50,jumpMax=-0.40,camSMin=0.25,camSMax=0.40},
+            HvH       = {hMin=0.1380,hMax=0.1480,vMin=0.1400,vMax=0.1500,jumpMin=-0.45,jumpMax=-0.16,fallMin=0.0,fallMax=0.05,camSMin=0.13,camSMax=0.23},
+            ["HvH OP"]= {hMin=0.1390,hMax=0.1490,vMin=0.1410,vMax=0.1510,jumpMin=-0.48,jumpMax=-0.40,fallMin=0.0,fallMax=0.05,camSMin=0.10,camSMax=0.14},
+            Blatant   = {hMin=0.1400,hMax=0.1520,vMin=0.1420,vMax=0.1540,jumpMin=-0.30,jumpMax=-0.16,fallMin=0.2,fallMax=0.35,camSMin=0.10,camSMax=0.20},
+            Legit     = {hMin=0.1320,hMax=0.1440,vMin=0.1350,vMax=0.1470,jumpMin=-0.50,jumpMax=-0.40,fallMin=0.0,fallMax=0.04,camSMin=0.25,camSMax=0.40},
         },
     },
 }
 
-local GAME_LIST = {"Da Hood","Da Strike","Voidfalls","Criminality","The Streets","Custom"}
+local GAME_LIST = {"Da Hood","Da Strike","Voidfalls","Criminality","The Streets","Yeno Hood","Custom"}
 local SelectedGame = "Da Strike"
 local function GP() return GAME_PROFILES[SelectedGame] end
 
 local GAME_V3_RANGES = {
-    ["Da Hood"]     = {
-        HvH     = {Long={0.0820,0.0950}, Med={0.0730,0.0860}, Close={0.0600,0.0740}},
-        Blatant = {Long={0.0900,0.1050}, Med={0.0800,0.0950}, Close={0.0700,0.0850}},
-        Legit   = {Long={0.0650,0.0800}, Med={0.0560,0.0720}, Close={0.0450,0.0600}},
-    },
-    ["Da Strike"]   = {
-        HvH     = {Long={0.1419,0.1540}, Med={0.1300,0.1420}, Close={0.1100,0.1300}},
-        Blatant = {Long={0.1500,0.1650}, Med={0.1380,0.1520}, Close={0.1200,0.1380}},
-        Legit   = {Long={0.1200,0.1350}, Med={0.1050,0.1220}, Close={0.0900,0.1060}},
-    },
-    ["Voidfalls"]   = {
-        HvH     = {Long={0.1300,0.1430}, Med={0.1180,0.1320}, Close={0.1000,0.1190}},
-        Blatant = {Long={0.1400,0.1550}, Med={0.1280,0.1420}, Close={0.1100,0.1290}},
-        Legit   = {Long={0.1100,0.1280}, Med={0.0980,0.1150}, Close={0.0850,0.1000}},
-    },
-    ["Criminality"] = {
-        HvH     = {Long={0.1500,0.1630}, Med={0.1380,0.1510}, Close={0.1200,0.1390}},
-        Blatant = {Long={0.1600,0.1750}, Med={0.1480,0.1620}, Close={0.1300,0.1490}},
-        Legit   = {Long={0.1280,0.1430}, Med={0.1150,0.1300}, Close={0.1000,0.1160}},
-    },
-    ["The Streets"] = {
-        HvH     = {Long={0.0900,0.1050}, Med={0.0780,0.0920}, Close={0.0650,0.0790}},
-        Blatant = {Long={0.1000,0.1150}, Med={0.0880,0.1020}, Close={0.0750,0.0890}},
-        Legit   = {Long={0.0720,0.0870}, Med={0.0600,0.0750}, Close={0.0500,0.0650}},
-    },
-    ["Custom"]      = {
-        HvH     = {Long={0.1300,0.1500}, Med={0.1100,0.1300}, Close={0.0900,0.1100}},
-        Blatant = {Long={0.1400,0.1600}, Med={0.1200,0.1400}, Close={0.1000,0.1200}},
-        Legit   = {Long={0.1000,0.1250}, Med={0.0850,0.1050}, Close={0.0700,0.0900}},
-    },
+    ["Da Hood"]     = {HvH={Long={0.0820,0.0950},Med={0.0730,0.0860},Close={0.0600,0.0740}},Blatant={Long={0.0900,0.1050},Med={0.0800,0.0950},Close={0.0700,0.0850}},Legit={Long={0.0650,0.0800},Med={0.0560,0.0720},Close={0.0450,0.0600}}},
+    ["Da Strike"]   = {HvH={Long={0.1419,0.1540},Med={0.1300,0.1420},Close={0.1100,0.1300}},Blatant={Long={0.1500,0.1650},Med={0.1380,0.1520},Close={0.1200,0.1380}},Legit={Long={0.1200,0.1350},Med={0.1050,0.1220},Close={0.0900,0.1060}}},
+    ["Voidfalls"]   = {HvH={Long={0.1300,0.1430},Med={0.1180,0.1320},Close={0.1000,0.1190}},Blatant={Long={0.1400,0.1550},Med={0.1280,0.1420},Close={0.1100,0.1290}},Legit={Long={0.1100,0.1280},Med={0.0980,0.1150},Close={0.0850,0.1000}}},
+    ["Criminality"] = {HvH={Long={0.1500,0.1630},Med={0.1380,0.1510},Close={0.1200,0.1390}},Blatant={Long={0.1600,0.1750},Med={0.1480,0.1620},Close={0.1300,0.1490}},Legit={Long={0.1280,0.1430},Med={0.1150,0.1300},Close={0.1000,0.1160}}},
+    ["The Streets"] = {HvH={Long={0.0900,0.1050},Med={0.0780,0.0920},Close={0.0650,0.0790}},Blatant={Long={0.1000,0.1150},Med={0.0880,0.1020},Close={0.0750,0.0890}},Legit={Long={0.0720,0.0870},Med={0.0600,0.0750},Close={0.0500,0.0650}}},
+    ["Yeno Hood"]   = {HvH={Long={0.0910,0.1060},Med={0.0790,0.0930},Close={0.0660,0.0800}},Blatant={Long={0.1010,0.1160},Med={0.0890,0.1030},Close={0.0760,0.0900}},Legit={Long={0.0730,0.0880},Med={0.0610,0.0760},Close={0.0510,0.0660}}},
+    ["Custom"]      = {HvH={Long={0.1300,0.1500},Med={0.1100,0.1300},Close={0.0900,0.1100}},Blatant={Long={0.1400,0.1600},Med={0.1200,0.1400},Close={0.1000,0.1200}},Legit={Long={0.1000,0.1250},Med={0.0850,0.1050},Close={0.0700,0.0900}}},
 }
 
 local PING_TABLE = {
@@ -171,6 +158,24 @@ local function rgb(c)
     return string.format("rgb(%.16f,%.16f,%.16f,1)", c.R, c.G, c.B)
 end
 
+local function GenWithStarter(minV, maxV, starter, digits)
+    digits = digits or 18
+    if not starter or starter == "" then
+        local val = minV + math.random() * (maxV - minV)
+        return tonumber(string.format("%." .. digits .. "f", val))
+    end
+    local tries = 0
+    while tries < 80000 do
+        local val = minV + math.random() * (maxV - minV)
+        local s = string.format("%." .. digits .. "f", val)
+        if s:sub(1, #starter) == starter then
+            return tonumber(s)
+        end
+        tries = tries + 1
+    end
+    return minV + math.random() * (maxV - minV)
+end
+
 local GameInfoLabel
 local GameBox = Tabs.Game:AddLeftGroupbox("Game Selection")
 GameBox:AddLabel("Select game to affect all generators.")
@@ -198,11 +203,7 @@ GameInfoLabel = GameRight:AddLabel(
 )
 
 local PREC_DIGITS = {
-    ["Ultra High"] = 15,
-    ["Ultra"]      = 12,
-    ["High"]       = 9,
-    ["Balance"]    = 6,
-    ["Low"]        = 4,
+    ["Ultra High"] = 15, ["Ultra"] = 12, ["High"] = 9, ["Balance"] = 6, ["Low"] = 4,
 }
 
 local V3State = {
@@ -262,10 +263,10 @@ local function RunV3()
     table.insert(V3State.Results, "Precision : " .. V3State.Precision)
     table.insert(V3State.Results, "Velocity  : " .. V3State.Velocity)
     table.insert(V3State.Results, "Extra     : " .. V3State.Extra)
-    table.insert(V3State.Results, string.format("Long Rng  : %.4f to %.4f", longMin,  longMax))
-    table.insert(V3State.Results, string.format("Med Rng   : %.4f to %.4f", medMin,   medMax))
+    table.insert(V3State.Results, string.format("Long Rng  : %.4f to %.4f", longMin, longMax))
+    table.insert(V3State.Results, string.format("Med Rng   : %.4f to %.4f", medMin, medMax))
     table.insert(V3State.Results, string.format("Close Rng : %.4f to %.4f", closeMin, closeMax))
-    table.insert(V3State.Results, "==================")
+    table.insert(V3State.Results, "================")
 
     for _, sect in ipairs(sects) do
         for _, line in ipairs(sect) do
@@ -274,33 +275,19 @@ local function RunV3()
         table.insert(V3State.Results, "")
     end
 
-    table.insert(V3State.Results, "==================")
+    table.insert(V3State.Results, "================")
     table.insert(V3State.Results, "Total : " .. (perSect * 3) .. " sets")
     table.insert(V3State.Results, "Game  : " .. SelectedGame)
 end
 
 local V3Box = Tabs.V3:AddLeftGroupbox("V3 Generator")
-V3Box:AddDropdown("V3StyleDD", {
-    Text = "Style", Values = {"HvH","Blatant","Legit"}, Default = 1,
-}):OnChanged(function(v) V3State.Style = v end)
-V3Box:AddSlider("V3CountS", {
-    Text = "Count (per section x3)", Min = 3, Max = 30, Default = 20, Rounding = 0,
-}):OnChanged(function(v) V3State.Count = v end)
-V3Box:AddSlider("V3LenS", {
-    Text = "Length (chars)", Min = 6, Max = 15, Default = 10, Rounding = 0,
-}):OnChanged(function(v) V3State.Length = v end)
-V3Box:AddInput("V3StarterI", {
-    Text = "Starter (optional)", Default = "", Placeholder = "e.g. 0.14",
-}):OnChanged(function(v) V3State.Starter = v end)
-V3Box:AddDropdown("V3PrecDD", {
-    Text = "Precision", Values = {"Ultra High","Ultra","High","Balance","Low"}, Default = 1,
-}):OnChanged(function(v) V3State.Precision = v end)
-V3Box:AddDropdown("V3VelDD", {
-    Text = "Velocity", Values = {"Ultra High","Ultra","High","Normal"}, Default = 1,
-}):OnChanged(function(v) V3State.Velocity = v end)
-V3Box:AddDropdown("V3ExtraDD", {
-    Text = "Extra", Values = {"Divine","Enchanted","Quantum","Mystic"}, Default = 1,
-}):OnChanged(function(v) V3State.Extra = v end)
+V3Box:AddDropdown("V3StyleDD", {Text="Style",Values={"HvH","Blatant","Legit"},Default=1}):OnChanged(function(v) V3State.Style=v end)
+V3Box:AddSlider("V3CountS",   {Text="Count (per section x3)",Min=3,Max=30,Default=20,Rounding=0}):OnChanged(function(v) V3State.Count=v end)
+V3Box:AddSlider("V3LenS",     {Text="Length (chars)",Min=6,Max=15,Default=10,Rounding=0}):OnChanged(function(v) V3State.Length=v end)
+V3Box:AddInput("V3StarterI",  {Text="Starter (optional)",Default="",Placeholder="e.g. 0.14"}):OnChanged(function(v) V3State.Starter=v end)
+V3Box:AddDropdown("V3PrecDD", {Text="Precision",Values={"Ultra High","Ultra","High","Balance","Low"},Default=1}):OnChanged(function(v) V3State.Precision=v end)
+V3Box:AddDropdown("V3VelDD",  {Text="Velocity",Values={"Ultra High","Ultra","High","Normal"},Default=1}):OnChanged(function(v) V3State.Velocity=v end)
+V3Box:AddDropdown("V3ExtraDD",{Text="Extra",Values={"Divine","Enchanted","Quantum","Mystic"},Default=1}):OnChanged(function(v) V3State.Extra=v end)
 V3Box:AddButton("Generate", function()
     RunV3()
     if V3OutLabel then V3OutLabel:SetText(table.concat(V3State.Results, "\n")) end
@@ -319,12 +306,8 @@ local ScriptState = {Ping=80, Script="Azure V4"}
 local ScriptOutLabel
 
 local SBox = Tabs.Script:AddLeftGroupbox("Script Offset Gen")
-SBox:AddSlider("SPing", {
-    Text = "Ping (ms)", Min = 1, Max = 500, Default = 80, Rounding = 0,
-}):OnChanged(function(v) ScriptState.Ping = v end)
-SBox:AddDropdown("SDD", {
-    Text = "Script", Values = {"Azure V4","Alysum","Lunar.VIP","Stellar","Shhhh"}, Default = 1,
-}):OnChanged(function(v) ScriptState.Script = v end)
+SBox:AddSlider("SPing", {Text="Ping (ms)",Min=1,Max=500,Default=80,Rounding=0}):OnChanged(function(v) ScriptState.Ping=v end)
+SBox:AddDropdown("SDD", {Text="Script",Values={"Azure V4","Alysum","Lunar.VIP","Stellar","Shhhh"},Default=1}):OnChanged(function(v) ScriptState.Script=v end)
 SBox:AddButton("Generate", function()
     local offset = LookupPing(ScriptState.Ping, GP().ScriptMult)
     local out = "Game   : " .. SelectedGame ..
@@ -348,7 +331,7 @@ local function BuildCelex(ping, cfgType, predType, mult)
     local m = LookupPing(ping, mult)
     local pt = ""
     if predType == "Multiplication" then pt = 'pred_type = "1";\n' end
-    return 'aimbot-enabled = "1";\naimbot-smoothing = "' .. cfg.smoothing .. '";\naimbot-sensitivity = "' .. cfg.sensitivity .. '";\naimbot-bind = "5";\naimbot-part = "2";\nstreamproof = "0";\nv-sync = "1";\nprediction = "1";\nstickyaim = "1";\nteamcheck = "0";\nknocheck = "0";\naimbot-fov = "1000";\npred_x = "' .. string.format("%.15f", dx) .. '";\npred_y = "' .. string.format("%.15f", dy) .. '";\npred = "' .. string.format("%.15f", m) .. '";\nx_offset = "0";\ny_offset = "0";\naimbot_type = "1";\nno_jump = "1";\n' .. pt
+    return 'aimbot-enabled = "1";\naimbot-smoothing = "' .. cfg.smoothing .. '";\naimbot-sensitivity = "' .. cfg.sensitivity .. '";\naimbot-bind = "5";\naimbot-part = "2";\nstreamproof = "0";\nv-sync = "1";\nprediction = "1";\nstickyaim = "1";\nteamcheck = "0";\nknockcheck = "0";\naimbot-fov = "1000";\npred_x = "' .. string.format("%.15f", dx) .. '";\npred_y = "' .. string.format("%.15f", dy) .. '";\npred = "' .. string.format("%.15f", m) .. '";\nx_offset = "0";\ny_offset = "0";\naimbot_type = "1";\nno_jump = "1";\n' .. pt
 end
 
 local function BuildJsonExt(ping, cfgType, fov, ak, akm, ap, kc, mult)
@@ -377,7 +360,7 @@ end
 
 local function GetExtCfg(ext, ping, cfgType, predType)
     local m = GP().ExtMult
-    if ext == "Celex"   then return BuildCelex(ping, cfgType, predType, m)
+    if     ext == "Celex"   then return BuildCelex(ping, cfgType, predType, m)
     elseif ext == "Ethic"   then return BuildJsonExt(ping, cfgType, 360,  6,  0, 2, true,  m)
     elseif ext == "Horizon" then return BuildJsonExt(ping, cfgType, 360,  69, 0, 0, false, m)
     elseif ext == "Silence" then return BuildJsonExt(ping, cfgType, 360,  6,  0, 2, true,  m)
@@ -390,20 +373,10 @@ local function GetExtCfg(ext, ping, cfgType, predType)
 end
 
 local EBox = Tabs.Ext:AddLeftGroupbox("External Config Gen")
-EBox:AddSlider("EPing", {
-    Text = "Ping (ms)", Min = 1, Max = 500, Default = 80, Rounding = 0,
-}):OnChanged(function(v) ExtState.Ping = v end)
-EBox:AddDropdown("EExtDD", {
-    Text = "External",
-    Values = {"Celex","Severe","Ethic","Horizon","Silence","Mono","Xuaa","Phobia"},
-    Default = 1,
-}):OnChanged(function(v) ExtState.External = v end)
-EBox:AddDropdown("ECfgDD", {
-    Text = "Config Type", Values = {"Rage","Blatant","Semi Legit","Legit"}, Default = 2,
-}):OnChanged(function(v) ExtState.CfgType = v end)
-EBox:AddDropdown("EPredDD", {
-    Text = "Prediction", Values = {"Division","Multiplication"}, Default = 1,
-}):OnChanged(function(v)
+EBox:AddSlider("EPing",   {Text="Ping (ms)",Min=1,Max=500,Default=80,Rounding=0}):OnChanged(function(v) ExtState.Ping=v end)
+EBox:AddDropdown("EExtDD",{Text="External",Values={"Celex","Severe","Ethic","Horizon","Silence","Mono","Xuaa","Phobia"},Default=1}):OnChanged(function(v) ExtState.External=v end)
+EBox:AddDropdown("ECfgDD",{Text="Config Type",Values={"Rage","Blatant","Semi Legit","Legit"},Default=2}):OnChanged(function(v) ExtState.CfgType=v end)
+EBox:AddDropdown("EPredDD",{Text="Prediction",Values={"Division","Multiplication"},Default=1}):OnChanged(function(v)
     if v == "Multiplication" and ExtState.External ~= "Celex" then
         Library:Notify("Mult only works with Celex!", 3)
         return
@@ -417,13 +390,7 @@ EBox:AddButton("Generate Config", function()
     end
     local cfg = GetExtCfg(ExtState.External, ExtState.Ping, ExtState.CfgType, ExtState.PredType)
     if ExtOutLabel then
-        ExtOutLabel:SetText(
-            "Game: " .. SelectedGame ..
-            "\n" .. ExtState.External ..
-            " | " .. ExtState.CfgType ..
-            " | " .. ExtState.PredType ..
-            " | " .. ExtState.Ping .. "ms\n\nCopied!"
-        )
+        ExtOutLabel:SetText("Game: " .. SelectedGame .. "\n" .. ExtState.External .. " | " .. ExtState.CfgType .. " | " .. ExtState.PredType .. " | " .. ExtState.Ping .. "ms\n\nCopied!")
     end
     setclipboard(cfg)
     Library:Notify(ExtState.External .. " config copied! (" .. SelectedGame .. ")", 4)
@@ -433,43 +400,28 @@ local ERight = Tabs.Ext:AddRightGroupbox("Output")
 ExtOutLabel = ERight:AddLabel("Generate to see info.")
 
 local PState = {
-    Ping         = 80,
-    Mode         = "HvH",
-    HPred        = 0.147808289366167382,
-    VPred        = 0.149332284192594888,
-    CamHPred     = 0.147808289366167382,
-    CamVPred     = 0.149332284192594888,
-    AutoPing     = true,
-    LockMethod   = "Namecall",
-    HitPart      = "HumanoidRootPart",
-    AirPart      = "RightFoot",
-    CamSmooth    = 0.228,
-    JumpOffset   = -0.16,
-    FallOffset   = 0.0,
-    FOV          = 80,
-    SilentFOV    = 125,
-    CamEnabled   = true,
-    CamKo        = false,
-    CamWall      = false,
-    Wall         = false,
-    KO           = false,
-    LookAt       = true,
-    AutoAir      = true,
-    Visualize    = true,
-    Watermark    = true,
-    AntiAimViewer= true,
-    EffectType   = "Coom",
-    SoundType    = "Bubble",
-    VisualizerColor  = Color3.fromRGB(0,0,255),
-    HitChamColor     = Color3.fromRGB(255,255,255),
-    HitEffectColor   = Color3.fromRGB(226,253,203),
-    MenuAccentColor  = Color3.fromRGB(224,225,197),
-    HighlightColor1  = Color3.fromRGB(0,0,255),
-    HighlightColor2  = Color3.fromRGB(0,0,255),
-    CfgName      = "my cfg",
-    WatermarkTxt = "Psalms.Tech | private",
-    SingleOutput = "",
+    Ping=80, Mode="HvH",
+    HPred=0.147808289366167382, VPred=0.149332284192594888,
+    CamHPred=0.147808289366167382, CamVPred=0.149332284192594888,
+    AutoPing=true,
+    LockMethod="Namecall", HitPart="HumanoidRootPart", AirPart="RightFoot",
+    CamSmooth=0.228, JumpOffset=-0.16, FallOffset=0.0,
+    FOV=80, SilentFOV=125,
+    CamEnabled=true, CamKo=false, CamWall=false,
+    Wall=false, KO=false, LookAt=true, AutoAir=true,
+    Visualize=true, Watermark=true, AntiAimViewer=true,
+    EffectType="Coom", SoundType="Bubble",
+    VisualizerColor=Color3.fromRGB(0,0,255),
+    HitChamColor=Color3.fromRGB(255,255,255),
+    HitEffectColor=Color3.fromRGB(226,253,203),
+    MenuAccentColor=Color3.fromRGB(224,225,197),
+    HighlightColor1=Color3.fromRGB(0,0,255),
+    HighlightColor2=Color3.fromRGB(0,0,255),
+    CfgName="my cfg", WatermarkTxt="Psalms.Tech | private",
+    SingleOutput="",
 }
+
+local PStarters = {H="",V="",CamH="",CamV="",Jump="",Fall=""}
 
 local PSALMS_MODES  = {"HvH","HvH OP","Blatant","Legit"}
 local PSALMS_FX     = {"Coom","Crescent Slash","Cosmic Explosion","Thunder","Bubble","Cataclysm","Spiral"}
@@ -480,11 +432,41 @@ local PSALMS_LOCK   = {"Namecall","Index"}
 
 local function ApplyPingPred()
     if not PState.AutoPing then return end
-    local base = LookupPing(PState.Ping, GP().PsalmsMult)
-    PState.HPred    = base
-    PState.VPred    = base
-    PState.CamHPred = base
-    PState.CamVPred = base
+    local gp = GP().Psalms
+    local r = gp[PState.Mode] or gp["HvH"]
+
+    PState.HPred    = GenWithStarter(r.hMin,    r.hMax,    PStarters.H    ~= "" and PStarters.H    or nil, 18)
+    PState.VPred    = GenWithStarter(r.vMin,    r.vMax,    PStarters.V    ~= "" and PStarters.V    or nil, 18)
+    PState.CamHPred = GenWithStarter(r.hMin,    r.hMax,    PStarters.CamH ~= "" and PStarters.CamH or nil, 18)
+    PState.CamVPred = GenWithStarter(r.vMin,    r.vMax,    PStarters.CamV ~= "" and PStarters.CamV or nil, 18)
+
+    if PStarters.Jump ~= "" then
+        local jStr = PStarters.Jump
+        local tries = 0
+        while tries < 80000 do
+            local val = r.jumpMin + math.random() * (r.jumpMax - r.jumpMin)
+            local s = string.format("%.4f", val)
+            if s:sub(1, #jStr) == jStr then
+                PState.JumpOffset = tonumber(s)
+                break
+            end
+            tries = tries + 1
+        end
+    end
+
+    if PStarters.Fall ~= "" then
+        local fStr = PStarters.Fall
+        local tries = 0
+        while tries < 80000 do
+            local val = r.fallMin + math.random() * (r.fallMax - r.fallMin)
+            local s = string.format("%.4f", val)
+            if s:sub(1, #fStr) == fStr then
+                PState.FallOffset = tonumber(s)
+                break
+            end
+            tries = tries + 1
+        end
+    end
 end
 
 local function BuildPsalmsCfg(p)
@@ -622,7 +604,7 @@ end
 
 local PInfoLabel
 
-local PBox  = Tabs.Psalms:AddLeftGroupbox("Prediction Settings")
+local PBox  = Tabs.Psalms:AddLeftGroupbox("Prediction + Starters")
 local PBox2 = Tabs.Psalms:AddLeftGroupbox("Aimbot Settings")
 local PBox3 = Tabs.Psalms:AddLeftGroupbox("Toggles")
 local PBox4 = Tabs.Psalms:AddLeftGroupbox("Meta + Generate")
@@ -630,113 +612,98 @@ local PBox4 = Tabs.Psalms:AddLeftGroupbox("Meta + Generate")
 local ColorBox = Tabs.Psalms:AddRightGroupbox("Colors")
 local InfoBox  = Tabs.Psalms:AddRightGroupbox("CFG Info")
 
-PBox:AddDropdown("PModeDD", {
-    Text = "Mode", Values = PSALMS_MODES, Default = 1,
-}):OnChanged(function(v)
+PBox:AddDropdown("PModeDD", {Text="Mode",Values=PSALMS_MODES,Default=1}):OnChanged(function(v)
     PState.Mode = v
-    ApplyPingPred()
+    if PState.AutoPing then ApplyPingPred() end
 end)
 
-PBox:AddToggle("PAutoPing", {
-    Text = "Auto Calc Pred from Ping", Default = true,
-}):OnChanged(function(v)
+PBox:AddToggle("PAutoPing", {Text="Auto Calc Pred from Ping",Default=true}):OnChanged(function(v)
     PState.AutoPing = v
     if v then ApplyPingPred() end
 end)
 
-PBox:AddSlider("PPingSlider", {
-    Text = "Ping (ms)", Min = 1, Max = 300, Default = 80, Rounding = 0,
-}):OnChanged(function(v)
+PBox:AddSlider("PPingSlider", {Text="Ping (ms)",Min=1,Max=300,Default=80,Rounding=0}):OnChanged(function(v)
     PState.Ping = v
     if PState.AutoPing then ApplyPingPred() end
 end)
 
-PBox:AddInput("PHPredInput", {
-    Text = "H Prediction", Default = "0.147808289366167382", Placeholder = "0.1478...",
-}):OnChanged(function(v)
-    local n = tonumber(v)
-    if n then PState.HPred = n PState.AutoPing = false end
+PBox:AddLabel("H Pred Starter")
+PBox:AddInput("PHStarterI", {Text="H Starter",Default="",Placeholder="e.g. 0.14 or 0.147"}):OnChanged(function(v)
+    PStarters.H = v
+    if PState.AutoPing then ApplyPingPred() end
 end)
 
-PBox:AddInput("PVPredInput", {
-    Text = "V Prediction", Default = "0.149332284192594888", Placeholder = "0.1493...",
-}):OnChanged(function(v)
-    local n = tonumber(v)
-    if n then PState.VPred = n PState.AutoPing = false end
+PBox:AddLabel("V Pred Starter")
+PBox:AddInput("PVStarterI", {Text="V Starter",Default="",Placeholder="e.g. 0.14 or 0.149"}):OnChanged(function(v)
+    PStarters.V = v
+    if PState.AutoPing then ApplyPingPred() end
 end)
 
-PBox:AddInput("PCamHInput", {
-    Text = "Cam HPred", Default = "0.147808289366167382", Placeholder = "0.1478...",
-}):OnChanged(function(v)
-    local n = tonumber(v)
-    if n then PState.CamHPred = n end
+PBox:AddLabel("Cam H Pred Starter")
+PBox:AddInput("PCamHStarterI", {Text="Cam H Starter",Default="",Placeholder="e.g. 0.14 or 0.147"}):OnChanged(function(v)
+    PStarters.CamH = v
+    if PState.AutoPing then ApplyPingPred() end
 end)
 
-PBox:AddInput("PCamVInput", {
-    Text = "Cam VPred", Default = "0.149332284192594888", Placeholder = "0.1493...",
-}):OnChanged(function(v)
-    local n = tonumber(v)
-    if n then PState.CamVPred = n end
+PBox:AddLabel("Cam V Pred Starter")
+PBox:AddInput("PCamVStarterI", {Text="Cam V Starter",Default="",Placeholder="e.g. 0.14 or 0.149"}):OnChanged(function(v)
+    PStarters.CamV = v
+    if PState.AutoPing then ApplyPingPred() end
 end)
 
-PBox2:AddDropdown("PLockDD", {
-    Text = "Locking Method", Values = PSALMS_LOCK, Default = 1,
-}):OnChanged(function(v) PState.LockMethod = v end)
+PBox:AddLabel("Jump Offset Starter")
+PBox:AddInput("PJumpStarterI", {Text="Jump Starter",Default="",Placeholder="e.g. -0.1 or -0.45"}):OnChanged(function(v)
+    PStarters.Jump = v
+    if PState.AutoPing then ApplyPingPred() end
+end)
 
-PBox2:AddDropdown("PHitPartDD", {
-    Text = "Hit Part", Values = PSALMS_PARTS, Default = 1,
-}):OnChanged(function(v) PState.HitPart = v end)
+PBox:AddLabel("Fall Offset Starter")
+PBox:AddInput("PFallStarterI", {Text="Fall Starter",Default="",Placeholder="e.g. 0.0 or 0.03"}):OnChanged(function(v)
+    PStarters.Fall = v
+    if PState.AutoPing then ApplyPingPred() end
+end)
 
-PBox2:AddDropdown("PAirPartDD", {
-    Text = "Air Part", Values = PSALMS_AIR, Default = 1,
-}):OnChanged(function(v) PState.AirPart = v end)
+PBox:AddButton("Generate Preds from Starters", function()
+    ApplyPingPred()
+    Library:Notify(
+        "H: "    .. string.format("%.12f", PState.HPred) ..
+        "\nV: "  .. string.format("%.12f", PState.VPred) ..
+        "\nJump: ".. string.format("%.4f",  PState.JumpOffset) ..
+        "\nFall: ".. string.format("%.4f",  PState.FallOffset), 5
+    )
+end)
 
-PBox2:AddDropdown("PFxDD", {
-    Text = "Effect Type", Values = PSALMS_FX, Default = 1,
-}):OnChanged(function(v) PState.EffectType = v end)
+PBox:AddLabel("Manual Override (disables auto)")
+PBox:AddInput("PHManualI",    {Text="Manual H",      Default="",Placeholder="0.147808..."}):OnChanged(function(v) local n=tonumber(v) if n then PState.HPred=n    PState.AutoPing=false end end)
+PBox:AddInput("PVManualI",    {Text="Manual V",      Default="",Placeholder="0.149332..."}):OnChanged(function(v) local n=tonumber(v) if n then PState.VPred=n    PState.AutoPing=false end end)
+PBox:AddInput("PCamHManualI", {Text="Manual Cam H",  Default="",Placeholder="0.147808..."}):OnChanged(function(v) local n=tonumber(v) if n then PState.CamHPred=n end end)
+PBox:AddInput("PCamVManualI", {Text="Manual Cam V",  Default="",Placeholder="0.149332..."}):OnChanged(function(v) local n=tonumber(v) if n then PState.CamVPred=n end end)
 
-PBox2:AddDropdown("PSoundDD", {
-    Text = "Sound Type", Values = PSALMS_SOUNDS, Default = 1,
-}):OnChanged(function(v) PState.SoundType = v end)
+PBox2:AddDropdown("PLockDD",    {Text="Locking Method",Values=PSALMS_LOCK,   Default=1}):OnChanged(function(v) PState.LockMethod=v end)
+PBox2:AddDropdown("PHitPartDD", {Text="Hit Part",     Values=PSALMS_PARTS,   Default=1}):OnChanged(function(v) PState.HitPart=v    end)
+PBox2:AddDropdown("PAirPartDD", {Text="Air Part",     Values=PSALMS_AIR,     Default=1}):OnChanged(function(v) PState.AirPart=v    end)
+PBox2:AddDropdown("PFxDD",      {Text="Effect Type",  Values=PSALMS_FX,      Default=1}):OnChanged(function(v) PState.EffectType=v end)
+PBox2:AddDropdown("PSoundDD",   {Text="Sound Type",   Values=PSALMS_SOUNDS,  Default=1}):OnChanged(function(v) PState.SoundType=v  end)
 
-PBox2:AddSlider("PCamSmoothSlider", {
-    Text = "Cam Smoothness", Min = 1, Max = 100, Default = 23, Rounding = 0, Suffix = "x0.01",
-}):OnChanged(function(v) PState.CamSmooth = v * 0.01 end)
+PBox2:AddSlider("PCamSmoothSlider", {Text="Cam Smoothness",Min=1,  Max=100,Default=23,  Rounding=0,Suffix="x0.01"}):OnChanged(function(v) PState.CamSmooth  = v*0.01  end)
+PBox2:AddSlider("PJumpSlider",      {Text="Jump Offset",   Min=-100,Max=0,  Default=-16, Rounding=0,Suffix="x0.01"}):OnChanged(function(v) PState.JumpOffset = v*0.01  end)
+PBox2:AddSlider("PFallSlider",      {Text="Fall Offset",   Min=0,   Max=50, Default=0,   Rounding=0,Suffix="x0.01"}):OnChanged(function(v) PState.FallOffset = v*0.01  end)
+PBox2:AddSlider("PFovSlider",       {Text="Field of View", Min=10,  Max=360,Default=80,  Rounding=0}):OnChanged(function(v) PState.FOV=v               end)
+PBox2:AddSlider("PSilentFovSlider", {Text="Silent FOV",    Min=10,  Max=360,Default=125, Rounding=0}):OnChanged(function(v) PState.SilentFOV=v          end)
 
-PBox2:AddSlider("PJumpSlider", {
-    Text = "Jump Offset", Min = -100, Max = 0, Default = -16, Rounding = 0, Suffix = "x0.01",
-}):OnChanged(function(v) PState.JumpOffset = v * 0.01 end)
+PBox3:AddToggle("PCamEnabledT", {Text="Camera Lock",     Default=true }):OnChanged(function(v) PState.CamEnabled    =v end)
+PBox3:AddToggle("PCamKoT",      {Text="Cam Ko Check",    Default=false}):OnChanged(function(v) PState.CamKo         =v end)
+PBox3:AddToggle("PCamWallT",    {Text="Cam Wall Check",  Default=false}):OnChanged(function(v) PState.CamWall       =v end)
+PBox3:AddToggle("PWallT",       {Text="Wall Check",      Default=false}):OnChanged(function(v) PState.Wall          =v end)
+PBox3:AddToggle("PKoT",         {Text="KO Check",        Default=false}):OnChanged(function(v) PState.KO            =v end)
+PBox3:AddToggle("PLookAtT",     {Text="LookAt",          Default=true }):OnChanged(function(v) PState.LookAt        =v end)
+PBox3:AddToggle("PAutoAirT",    {Text="Auto Air",        Default=true }):OnChanged(function(v) PState.AutoAir       =v end)
+PBox3:AddToggle("PVisualizeT",  {Text="Visualize",       Default=true }):OnChanged(function(v) PState.Visualize     =v end)
+PBox3:AddToggle("PWatermarkT",  {Text="Watermark",       Default=true }):OnChanged(function(v) PState.Watermark     =v end)
+PBox3:AddToggle("PAAViewerT",   {Text="Anti Aim Viewer", Default=true }):OnChanged(function(v) PState.AntiAimViewer =v end)
 
-PBox2:AddSlider("PFallSlider", {
-    Text = "Fall Offset", Min = 0, Max = 50, Default = 0, Rounding = 0, Suffix = "x0.01",
-}):OnChanged(function(v) PState.FallOffset = v * 0.01 end)
-
-PBox2:AddSlider("PFovSlider", {
-    Text = "Field of View", Min = 10, Max = 360, Default = 80, Rounding = 0,
-}):OnChanged(function(v) PState.FOV = v end)
-
-PBox2:AddSlider("PSilentFovSlider", {
-    Text = "Silent FOV", Min = 10, Max = 360, Default = 125, Rounding = 0,
-}):OnChanged(function(v) PState.SilentFOV = v end)
-
-PBox3:AddToggle("PCamEnabledT", {Text="Camera Lock",         Default=true}):OnChanged(function(v) PState.CamEnabled    = v end)
-PBox3:AddToggle("PCamKoT",      {Text="Cam Ko Check",        Default=false}):OnChanged(function(v) PState.CamKo        = v end)
-PBox3:AddToggle("PCamWallT",    {Text="Cam Wall Check",      Default=false}):OnChanged(function(v) PState.CamWall      = v end)
-PBox3:AddToggle("PWallT",       {Text="Wall Check",          Default=false}):OnChanged(function(v) PState.Wall         = v end)
-PBox3:AddToggle("PKoT",         {Text="KO Check",            Default=false}):OnChanged(function(v) PState.KO           = v end)
-PBox3:AddToggle("PLookAtT",     {Text="LookAt",              Default=true}):OnChanged(function(v) PState.LookAt        = v end)
-PBox3:AddToggle("PAutoAirT",    {Text="Auto Air",            Default=true}):OnChanged(function(v) PState.AutoAir       = v end)
-PBox3:AddToggle("PVisualizeT",  {Text="Visualize",           Default=true}):OnChanged(function(v) PState.Visualize     = v end)
-PBox3:AddToggle("PWatermarkT",  {Text="Watermark",           Default=true}):OnChanged(function(v) PState.Watermark     = v end)
-PBox3:AddToggle("PAAViewerT",   {Text="Anti Aim Viewer",     Default=true}):OnChanged(function(v) PState.AntiAimViewer = v end)
-
-PBox4:AddInput("PCfgNameI", {
-    Text = "CFG Name", Default = "my cfg", Placeholder = "my hvh cfg",
-}):OnChanged(function(v) PState.CfgName = v end)
-
-PBox4:AddInput("PWmI", {
-    Text = "Watermark Text", Default = "Psalms.Tech | private", Placeholder = "watermark...",
-}):OnChanged(function(v) PState.WatermarkTxt = v end)
+PBox4:AddInput("PCfgNameI", {Text="CFG Name",       Default="my cfg",              Placeholder="my hvh cfg"}):OnChanged(function(v) PState.CfgName=v       end)
+PBox4:AddInput("PWmI",      {Text="Watermark Text", Default="Psalms.Tech | private",Placeholder="watermark..."}):OnChanged(function(v) PState.WatermarkTxt=v end)
 
 PBox4:AddButton("Generate + Copy CFG", function()
     if PState.AutoPing then ApplyPingPred() end
@@ -750,9 +717,9 @@ PBox4:AddButton("Generate + Copy CFG", function()
             "\nV Pred    : " .. string.format("%.15f", PState.VPred) ..
             "\nCam H     : " .. string.format("%.15f", PState.CamHPred) ..
             "\nCam V     : " .. string.format("%.15f", PState.CamVPred) ..
-            "\nCam Smooth: " .. string.format("%.4f", PState.CamSmooth) ..
-            "\nJump Off  : " .. string.format("%.4f", PState.JumpOffset) ..
-            "\nFall Off  : " .. string.format("%.4f", PState.FallOffset) ..
+            "\nCam Smooth: " .. string.format("%.4f",  PState.CamSmooth) ..
+            "\nJump Off  : " .. string.format("%.4f",  PState.JumpOffset) ..
+            "\nFall Off  : " .. string.format("%.4f",  PState.FallOffset) ..
             "\nLock      : " .. PState.LockMethod ..
             "\nHitPart   : " .. PState.HitPart ..
             "\nCamera    : " .. tostring(PState.CamEnabled)
@@ -763,66 +730,273 @@ PBox4:AddButton("Generate + Copy CFG", function()
 end)
 
 ColorBox:AddLabel("Visualizer Color")
-ColorBox:AddColorpicker("PVisColorPicker", {
-    Title = "Visualizer Color", Default = Color3.fromRGB(0,0,255),
-}):OnChanged(function(v) PState.VisualizerColor = v end)
-
+ColorBox:AddColorpicker("PVisColorPicker",    {Title="Visualizer Color", Default=Color3.fromRGB(0,0,255)}):OnChanged(function(v) PState.VisualizerColor=v end)
 ColorBox:AddLabel("Menu Accent Color")
-ColorBox:AddColorpicker("PAccentColorPicker", {
-    Title = "Menu Accent", Default = Color3.fromRGB(224,225,197),
-}):OnChanged(function(v) PState.MenuAccentColor = v end)
-
+ColorBox:AddColorpicker("PAccentColorPicker", {Title="Menu Accent",     Default=Color3.fromRGB(224,225,197)}):OnChanged(function(v) PState.MenuAccentColor=v end)
 ColorBox:AddLabel("Hit Cham Color")
-ColorBox:AddColorpicker("PHitChamColorPicker", {
-    Title = "Hit Cham Color", Default = Color3.fromRGB(255,255,255),
-}):OnChanged(function(v) PState.HitChamColor = v end)
-
+ColorBox:AddColorpicker("PHitChamColorPicker",{Title="Hit Cham Color",  Default=Color3.fromRGB(255,255,255)}):OnChanged(function(v) PState.HitChamColor=v    end)
 ColorBox:AddLabel("Hit Effect Color")
-ColorBox:AddColorpicker("PHitFxColorPicker", {
-    Title = "Hit Effect Color", Default = Color3.fromRGB(226,253,203),
-}):OnChanged(function(v) PState.HitEffectColor = v end)
-
+ColorBox:AddColorpicker("PHitFxColorPicker",  {Title="Hit Effect Color",Default=Color3.fromRGB(226,253,203)}):OnChanged(function(v) PState.HitEffectColor=v  end)
 ColorBox:AddLabel("Highlight Color 1")
-ColorBox:AddColorpicker("PHL1ColorPicker", {
-    Title = "Highlight 1", Default = Color3.fromRGB(0,0,255),
-}):OnChanged(function(v) PState.HighlightColor1 = v end)
-
+ColorBox:AddColorpicker("PHL1ColorPicker",    {Title="Highlight 1",    Default=Color3.fromRGB(0,0,255)}):OnChanged(function(v) PState.HighlightColor1=v      end)
 ColorBox:AddLabel("Highlight Color 2")
-ColorBox:AddColorpicker("PHL2ColorPicker", {
-    Title = "Highlight 2", Default = Color3.fromRGB(0,0,255),
-}):OnChanged(function(v) PState.HighlightColor2 = v end)
+ColorBox:AddColorpicker("PHL2ColorPicker",    {Title="Highlight 2",    Default=Color3.fromRGB(0,0,255)}):OnChanged(function(v) PState.HighlightColor2=v      end)
 
 ColorBox:AddLabel("Color Presets")
 ColorBox:AddButton("Blue Theme", function()
-    PState.VisualizerColor = Color3.fromRGB(0,0,255)
-    PState.HighlightColor1 = Color3.fromRGB(0,0,255)
-    PState.HighlightColor2 = Color3.fromRGB(0,0,255)
-    PState.MenuAccentColor = Color3.fromRGB(224,225,197)
+    PState.VisualizerColor=Color3.fromRGB(0,0,255)
+    PState.HighlightColor1=Color3.fromRGB(0,0,255)
+    PState.HighlightColor2=Color3.fromRGB(0,0,255)
+    PState.MenuAccentColor=Color3.fromRGB(224,225,197)
     Library:Notify("Blue theme applied!", 2)
 end)
 ColorBox:AddButton("Green Theme", function()
-    PState.VisualizerColor = Color3.fromRGB(0,255,100)
-    PState.HighlightColor1 = Color3.fromRGB(0,200,80)
-    PState.HighlightColor2 = Color3.fromRGB(0,200,80)
-    PState.MenuAccentColor = Color3.fromRGB(200,255,210)
+    PState.VisualizerColor=Color3.fromRGB(0,255,100)
+    PState.HighlightColor1=Color3.fromRGB(0,200,80)
+    PState.HighlightColor2=Color3.fromRGB(0,200,80)
+    PState.MenuAccentColor=Color3.fromRGB(200,255,210)
     Library:Notify("Green theme applied!", 2)
 end)
 ColorBox:AddButton("Purple Theme", function()
-    PState.VisualizerColor = Color3.fromRGB(150,0,255)
-    PState.HighlightColor1 = Color3.fromRGB(148,0,255)
-    PState.HighlightColor2 = Color3.fromRGB(148,0,255)
-    PState.MenuAccentColor = Color3.fromRGB(210,190,255)
+    PState.VisualizerColor=Color3.fromRGB(150,0,255)
+    PState.HighlightColor1=Color3.fromRGB(148,0,255)
+    PState.HighlightColor2=Color3.fromRGB(148,0,255)
+    PState.MenuAccentColor=Color3.fromRGB(210,190,255)
     Library:Notify("Purple theme applied!", 2)
 end)
 ColorBox:AddButton("White Theme", function()
-    PState.VisualizerColor = Color3.fromRGB(255,255,255)
-    PState.HighlightColor1 = Color3.fromRGB(230,230,230)
-    PState.HighlightColor2 = Color3.fromRGB(230,230,230)
-    PState.MenuAccentColor = Color3.fromRGB(245,245,245)
+    PState.VisualizerColor=Color3.fromRGB(255,255,255)
+    PState.HighlightColor1=Color3.fromRGB(230,230,230)
+    PState.HighlightColor2=Color3.fromRGB(230,230,230)
+    PState.MenuAccentColor=Color3.fromRGB(245,245,245)
     Library:Notify("White theme applied!", 2)
 end)
 
 PInfoLabel = InfoBox:AddLabel("Generate to see info.")
+
+local VState = {
+    Ping              = 80,
+    AimlockEnabled    = false,
+    SilentAimEnabled  = false,
+    EspEnabled        = false,
+    EspBoxes          = true,
+    EspHealth         = true,
+    EspNames          = true,
+    EspDistance       = true,
+    EspTracers        = false,
+    Highlight         = false,
+    FOVEnabled        = false,
+    FOVSlider         = 70,
+    CrosshairEnabled  = true,
+    CrosshairMode     = "Mouse",
+    AimlockMethod     = "Index",
+    LockPart          = "HumanoidRootPart",
+    AimlockFOV        = 120,
+    AimlockSmoothness = 1,
+    AimlockPrediction = "0.0001",
+    PredStarter       = "",
+    SilentHitPart     = "Head",
+    SilentFOV         = 150,
+    SilentOffset      = "0",
+    WallCheck         = true,
+    AliveCheck        = true,
+    HitSoundEnabled   = false,
+    HitNotifyEnabled  = false,
+    SpeedEnabled      = false,
+    SpeedSlider       = 50,
+    NoclipEnabled     = false,
+    AntiVoid          = true,
+    Output            = "",
+}
+
+local VOutLabel
+
+local function BuildVerticalCfg()
+    local pred = VState.AimlockPrediction
+
+    local objects = {
+        {idx="AimlockEnabled",   type="Toggle",   value=VState.AimlockEnabled},
+        {idx="SilentAimEnabled", type="Toggle",   value=VState.SilentAimEnabled},
+        {idx="EspEnabled",       type="Toggle",   value=VState.EspEnabled},
+        {idx="EspBoxes",         type="Toggle",   value=VState.EspBoxes},
+        {idx="EspHealth",        type="Toggle",   value=VState.EspHealth},
+        {idx="EspNames",         type="Toggle",   value=VState.EspNames},
+        {idx="EspDistance",      type="Toggle",   value=VState.EspDistance},
+        {idx="EspTracers",       type="Toggle",   value=VState.EspTracers},
+        {idx="Highlight",        type="Toggle",   value=VState.Highlight},
+        {idx="FOVEnabled",       type="Toggle",   value=VState.FOVEnabled},
+        {idx="CrosshairEnabled", type="Toggle",   value=VState.CrosshairEnabled},
+        {idx="HitSoundEnabled",  type="Toggle",   value=VState.HitSoundEnabled},
+        {idx="HitNotifyEnabled", type="Toggle",   value=VState.HitNotifyEnabled},
+        {idx="SpeedEnabled",     type="Toggle",   value=VState.SpeedEnabled},
+        {idx="Noclip",           type="Toggle",   value=VState.NoclipEnabled},
+        {idx="AntiVoid",         type="Toggle",   value=VState.AntiVoid},
+        {idx="ShowAimlockFOV",   type="Toggle",   value=false},
+        {idx="BulletTP",         type="Toggle",   value=false},
+        {idx="NoJumpCooldown",   type="Toggle",   value=false},
+        {idx="SpinbotEnabled",   type="Toggle",   value=false},
+        {idx="AntiSlow",         type="Toggle",   value=false},
+        {idx="TargetStrafeEnabled",type="Toggle", value=false},
+        {idx="Rainbow",          type="Toggle",   value=false},
+        {idx="AimlockMethod",    type="Dropdown", value=VState.AimlockMethod},
+        {idx="LockPart",         type="Dropdown", value=VState.LockPart},
+        {idx="SilentAimHitParts",type="Dropdown", value=VState.SilentHitPart},
+        {idx="CrosshairMode",    type="Dropdown", value=VState.CrosshairMode},
+        {idx="BoxMode",          type="Dropdown", value="Normal"},
+        {idx="NameType",         type="Dropdown", value="DisplayName"},
+        {idx="NotificationSide", type="Dropdown", value="Right"},
+        {idx="HitSoundSelect",   type="Dropdown", value="Gamesense"},
+        {idx="AimlockFOV",       type="Slider",   value=tostring(VState.AimlockFOV)},
+        {idx="AimlockSmoothness",type="Slider",   value=tostring(VState.AimlockSmoothness)},
+        {idx="FOVSlider",        type="Slider",   value=tostring(VState.FOVSlider)},
+        {idx="SilentAimFOVSlider",type="Slider",  value=tostring(VState.SilentFOV)},
+        {idx="SpeedSlider",      type="Slider",   value=tostring(VState.SpeedSlider)},
+        {idx="EspMaxDistance",   type="Slider",   value="5000"},
+        {idx="LockMaxDistance",  type="Slider",   value="1000"},
+        {idx="AimlockPrediction",type="Input",    text=pred},
+        {idx="SilentAimOffsetInput",type="Input", text=VState.SilentOffset},
+        {idx="MaxDistanceInput", type="Input",    text="250"},
+        {idx="AimlockChecks",    type="Dropdown", value={}},
+        {idx="TriggerChecks",    type="Dropdown", value={["Wall Check"]=VState.WallCheck,["Alive Check"]=VState.AliveCheck}},
+        {idx="BoxColorPicker",       type="ColorPicker",transparency=0,value="ffffff"},
+        {idx="HealthHighColorPicker",type="ColorPicker",transparency=0,value="00ff00"},
+        {idx="HealthLowColorPicker", type="ColorPicker",transparency=0,value="ff0000"},
+        {idx="NameColorPicker",      type="ColorPicker",transparency=0,value="ffffff"},
+        {idx="AimlockFOVColor",      type="ColorPicker",transparency=0,value="ffffff"},
+        {idx="FOVColorPicker",       type="ColorPicker",transparency=0,value="ffffff"},
+        {idx="TracerColorPicker",    type="ColorPicker",transparency=0,value="ffffff"},
+        {idx="HighlightColorPicker", type="ColorPicker",transparency=0,value="ffffff"},
+        {idx="AimlockKeybind",   type="KeyPicker", key="X",mode="Toggle",modifiers={}},
+        {idx="SpeedKeybind",     type="KeyPicker", key="B",mode="Toggle",modifiers={}},
+    }
+
+    local parts = {}
+    for _, obj in ipairs(objects) do
+        local entry = '{"idx":"' .. obj.idx .. '","type":"' .. obj.type .. '"'
+        if obj.type == "Toggle" then
+            entry = entry .. ',"value":' .. tostring(obj.value)
+        elseif obj.type == "Dropdown" then
+            if type(obj.value) == "table" then
+                local inner = ""
+                for k, v in pairs(obj.value) do
+                    if inner ~= "" then inner = inner .. "," end
+                    inner = inner .. '"' .. k .. '":' .. tostring(v)
+                end
+                entry = entry .. ',"multi":true,"value":{' .. inner .. '}'
+            else
+                entry = entry .. ',"multi":false,"value":"' .. tostring(obj.value) .. '"'
+            end
+        elseif obj.type == "Slider" then
+            entry = entry .. ',"value":"' .. obj.value .. '"'
+        elseif obj.type == "Input" then
+            entry = entry .. ',"text":"' .. obj.text .. '"'
+        elseif obj.type == "ColorPicker" then
+            entry = entry .. ',"transparency":' .. obj.transparency .. ',"value":"' .. obj.value .. '"'
+        elseif obj.type == "KeyPicker" then
+            entry = entry .. ',"key":"' .. obj.key .. '","mode":"' .. obj.mode .. '","modifiers":[]'
+        end
+        entry = entry .. "}"
+        table.insert(parts, entry)
+    end
+
+    return '{"objects":[' .. table.concat(parts, ",") .. "]}"
+end
+
+local VBox  = Tabs.Vertical:AddLeftGroupbox("Vertical.Hit CFG Gen")
+local VBox2 = Tabs.Vertical:AddLeftGroupbox("ESP + Visuals")
+local VBox3 = Tabs.Vertical:AddLeftGroupbox("Misc")
+local VRight = Tabs.Vertical:AddRightGroupbox("Output")
+
+VOutLabel = VRight:AddLabel("Generate to see info.")
+
+VBox:AddSlider("VPingSlider", {Text="Ping (ms)",Min=1,Max=300,Default=80,Rounding=0}):OnChanged(function(v)
+    VState.Ping = v
+end)
+
+VBox:AddToggle("VAimlockT",  {Text="Aimlock Enabled",   Default=false}):OnChanged(function(v) VState.AimlockEnabled   =v end)
+VBox:AddToggle("VSilentT",   {Text="Silent Aim Enabled", Default=false}):OnChanged(function(v) VState.SilentAimEnabled =v end)
+
+VBox:AddDropdown("VAimlockMethodDD", {
+    Text="Aimlock Method", Values={"Index","Namecall"}, Default=1,
+}):OnChanged(function(v) VState.AimlockMethod=v end)
+
+VBox:AddDropdown("VLockPartDD", {
+    Text="Lock Part", Values={"HumanoidRootPart","Head","UpperTorso","LowerTorso"}, Default=1,
+}):OnChanged(function(v) VState.LockPart=v end)
+
+VBox:AddDropdown("VSilentHitDD", {
+    Text="Silent Hit Part", Values={"Head","HumanoidRootPart","UpperTorso"}, Default=1,
+}):OnChanged(function(v) VState.SilentHitPart=v end)
+
+VBox:AddSlider("VAimlockFovSlider",  {Text="Aimlock FOV",    Min=10,Max=360, Default=120,Rounding=0}):OnChanged(function(v) VState.AimlockFOV=v end)
+VBox:AddSlider("VAimlockSmooth",     {Text="Aimlock Smooth", Min=1, Max=100, Default=1,  Rounding=0}):OnChanged(function(v) VState.AimlockSmoothness=v end)
+VBox:AddSlider("VSilentFovSlider",   {Text="Silent FOV",     Min=10,Max=360, Default=150,Rounding=0}):OnChanged(function(v) VState.SilentFOV=v end)
+
+VBox:AddLabel("Aimlock Pred Starter")
+VBox:AddInput("VPredStarterI", {Text="Pred Starter",Default="",Placeholder="e.g. 0.0001 or 0.075"}):OnChanged(function(v)
+    VState.PredStarter = v
+end)
+
+VBox:AddInput("VSilentOffsetI", {Text="Silent Offset",Default="0",Placeholder="0"}):OnChanged(function(v)
+    VState.SilentOffset = v
+end)
+
+VBox:AddToggle("VWallCheckT",  {Text="Wall Check",  Default=true }):OnChanged(function(v) VState.WallCheck  =v end)
+VBox:AddToggle("VAliveCheckT", {Text="Alive Check", Default=true }):OnChanged(function(v) VState.AliveCheck =v end)
+
+VBox2:AddToggle("VEspT",         {Text="ESP Enabled",    Default=false}):OnChanged(function(v) VState.EspEnabled   =v end)
+VBox2:AddToggle("VEspBoxT",      {Text="ESP Boxes",      Default=true }):OnChanged(function(v) VState.EspBoxes     =v end)
+VBox2:AddToggle("VEspHealthT",   {Text="ESP Health",     Default=true }):OnChanged(function(v) VState.EspHealth    =v end)
+VBox2:AddToggle("VEspNamesT",    {Text="ESP Names",      Default=true }):OnChanged(function(v) VState.EspNames     =v end)
+VBox2:AddToggle("VEspDistT",     {Text="ESP Distance",   Default=true }):OnChanged(function(v) VState.EspDistance  =v end)
+VBox2:AddToggle("VEspTracersT",  {Text="ESP Tracers",    Default=false}):OnChanged(function(v) VState.EspTracers   =v end)
+VBox2:AddToggle("VHighlightT",   {Text="Highlight",      Default=false}):OnChanged(function(v) VState.Highlight    =v end)
+VBox2:AddToggle("VFovCircleT",   {Text="FOV Circle",     Default=false}):OnChanged(function(v) VState.FOVEnabled   =v end)
+VBox2:AddSlider("VFovSlider",    {Text="FOV Size",Min=10,Max=360,Default=70,Rounding=0}):OnChanged(function(v) VState.FOVSlider=v end)
+VBox2:AddToggle("VCrosshairT",   {Text="Crosshair",      Default=true }):OnChanged(function(v) VState.CrosshairEnabled=v end)
+
+VBox3:AddToggle("VHitSoundT",    {Text="Hit Sound",   Default=false}):OnChanged(function(v) VState.HitSoundEnabled=v  end)
+VBox3:AddToggle("VHitNotifyT",   {Text="Hit Notify",  Default=false}):OnChanged(function(v) VState.HitNotifyEnabled=v end)
+VBox3:AddToggle("VSpeedT",       {Text="Speed",       Default=false}):OnChanged(function(v) VState.SpeedEnabled=v     end)
+VBox3:AddSlider("VSpeedSlider",  {Text="Speed Value", Min=16,Max=200,Default=50,Rounding=0}):OnChanged(function(v) VState.SpeedSlider=v end)
+VBox3:AddToggle("VNoclipT",      {Text="Noclip",      Default=false}):OnChanged(function(v) VState.NoclipEnabled=v    end)
+VBox3:AddToggle("VAntiVoidT",    {Text="Anti Void",   Default=true }):OnChanged(function(v) VState.AntiVoid=v         end)
+
+VBox:AddButton("Generate + Copy vertical.hit", function()
+    if VState.PredStarter ~= "" then
+        local gp = GP().Psalms
+        local r = gp[PState.Mode] or gp["HvH"]
+        local base = LookupPing(VState.Ping, GP().PsalmsMult)
+        local predVal = GenWithStarter(
+            math.max(0.00005, base * 0.4),
+            base * 0.6,
+            VState.PredStarter ~= "" and VState.PredStarter or nil,
+            18
+        )
+        VState.AimlockPrediction = string.format("%.18f", predVal)
+    else
+        local base = LookupPing(VState.Ping, GP().PsalmsMult)
+        VState.AimlockPrediction = string.format("%.18f", base * 0.5)
+    end
+
+    VState.Output = BuildVerticalCfg()
+
+    if VOutLabel then
+        VOutLabel:SetText(
+            "Game      : " .. SelectedGame ..
+            "\nPing      : " .. VState.Ping .. " ms" ..
+            "\nAimlock   : " .. tostring(VState.AimlockEnabled) ..
+            "\nSilent    : " .. tostring(VState.SilentAimEnabled) ..
+            "\nPrediction: " .. VState.AimlockPrediction ..
+            "\nMethod    : " .. VState.AimlockMethod ..
+            "\nLock Part : " .. VState.LockPart ..
+            "\n\nCopied!"
+        )
+    end
+
+    setclipboard(VState.Output)
+    Library:Notify("vertical.hit CFG copied! (" .. SelectedGame .. ")", 4)
+end)
 
 ThemeManager:SetLibrary(Library)
 SaveManager:SetLibrary(Library)
@@ -870,4 +1044,4 @@ do
     end)
 end
 
-Library:Notify("Full Suite loaded! | " .. SelectedGame, 4)
+Library:Notify("FullSuit.V5 loaded! | " .. SelectedGame, 4)
